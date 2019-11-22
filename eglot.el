@@ -1234,9 +1234,13 @@ For example, to keep your Company customization use
 (defvar-local eglot--cached-server nil
   "A cached reference to the current EGLOT server.")
 
+(defvar eglot-managed-mode-hook nil
+  "A hook run by eglot after it starts/stops managing a buffer.")
+
 (define-minor-mode eglot--managed-mode
   "Mode for source buffers managed by some EGLOT project."
   nil nil eglot-mode-map
+  :after-hook (run-hooks 'eglot-managed-mode-hook)
   (cond
    (eglot--managed-mode
     (add-hook 'after-change-functions 'eglot--after-change nil t)
